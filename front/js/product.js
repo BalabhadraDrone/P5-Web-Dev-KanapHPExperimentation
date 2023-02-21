@@ -1,4 +1,4 @@
-// Created a function for the product page
+// Created a function for the product page. (Post-Session 2.20.23) Combining the display with the click events
 
 function displaySingleProduct(productInfo) {
   // Targeted the html parent container that hold the image, name, price etc.
@@ -19,42 +19,44 @@ function displaySingleProduct(productInfo) {
     productInfo.colors.forEach((element) => {
     colorsOption.innerHTML += `<option value="${element}">${element}</option>`;
     });
-}
 
-// 2.18.23 ------Need Help For The Quantity 
-let addToCart = document.getElementById('addToCart');
-addToCart.addEventListener('click', () => {
-  let cart = localStorage.getItem('cart').value;
-  let color = document.getElementById('colors').value;
-  let quantity = document.getElementById('quantity').value;
+    let addToCartElement = document.getElementById('addToCart');
+    addToCartElement.addEventListener("click", () => {
+      let cart = localStorage.getItem('cart');
+      let color = document.getElementById('colors').value;
+      let quantity = document.getElementById('quantity').value;
 
-  // if / else statements for color
-  if (color == "") {
-    alert("please select a color");
-  }
-  else {
-    let products = [];
-
-    if (cart == null) {
-      products.push({ _id: id, quantity: parseInt(quantity), color: color});
-      localStorage.setItem('cart', JSON.stringify(products));
-    }
-    else {
-
-      let cart = JSON.parse(localStorage.getItem('cart'));
-      let index = cart.findIndex((object) => object._id == id && object.color == color);
-
-      if (index != -1) {
-
-        cart[index].quantity += parseInt(quantity);
+      //If Statement for the color selection
+      if (color == "") {
+        alert("Oops! Forgot The Color!");
       }
+
+      //Else Statement for the products
       else {
-        cart.push({ _id: id, quantity: parseInt(quantity),color: color });
+        let products = [];
+        // If there's no cart- push object to a separated(?) array then store that particular array in local storage
+        // Unable to Fix The ID Push
+        if (cart == null) {
+          /*products.push({ _id: id, quantity: parseInt(quantity), color: color });
+          localStorage.setItem('cart', JSON.stringify(products));*/
+        } 
+        else {
+          // If there is an object within the array with a matching ID 
+          let cart = JSON.parse(localStorage.getItem('cart'));
+          let index = cart.findIndex((object) => object._id == id && object.color == color);
+          // If ID is the same - check the color
+          if (index != -1) {
+            //If Color is the same - add 1 to quantity
+            cart[index].quantity += parseInt(quantity);
+          }
+          else {
+            cart.push({ _id: id, quantity: parseInt(quantity), color: color});
+          }
+          localStorage.setItem('cart', JSON.stringify(cart));
+        }
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-  }
-})
+    });
+}
 
 
 
