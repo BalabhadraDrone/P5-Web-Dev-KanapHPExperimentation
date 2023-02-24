@@ -31,29 +31,8 @@ function displaySingleProduct(productInfo) {
         alert("Oops! Forgot The Color!");
       }
 
-      //Else Statement for the products
-      else {
-        let products = [];
-        // If there's no cart- push object to a separated(?) array then store that particular array in local storage
-        // Unable to Fix The ID Push
-        if (cart == null) {
-          /*products.push({ _id: id, quantity: parseInt(quantity), color: color });
-          localStorage.setItem('cart', JSON.stringify(products));*/
-        } 
-        else {
-          // If there is an object within the array with a matching ID 
-          let cart = JSON.parse(localStorage.getItem('cart'));
-          let index = cart.findIndex((object) => object._id == id && object.color == color);
-          // If ID is the same - check the color
-          if (index != -1) {
-            //If Color is the same - add 1 to quantity
-            cart[index].quantity += parseInt(quantity);
-          }
-          else {
-            cart.push({ _id: id, quantity: parseInt(quantity), color: color});
-          }
-          localStorage.setItem('cart', JSON.stringify(cart));
-        }
+      if (quantity == [0]) {
+        alert("Please Add Selection");
       }
     });
 }
