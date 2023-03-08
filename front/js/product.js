@@ -49,29 +49,12 @@ let addToCartElement = document.getElementById('addToCart');
         alert("Oops! Forgot The Color!");
       }
 
-      else { 
-        let products = []
-        if (cart == null) {
-          addToCartElement.push({ "_id": id, "quantity": parseInt(quantity), "color": color });
-          localStorage.setItem("cart", JSON.stringify(products));
-      }
-      
-      else {
-        // if there is already an object in the array then find if it hase same id
-        let cart = JSON.parse(localStorage.getItem("cart"));
-        let index = cart.findIndex((object) => object._id == id && object.color == color);
-        // if id is the same then check color
-        if (index != -1) {
-            // if color is the same then add 1 to quantity
-            cart[index].quantity += parseInt(quantity);
-      }
-      else {
-        cart.push({ _id: id, quantity: parseInt(quantity), color: color });
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-
       if (quantity == [0]) {
         alert("Please Add Selection");
       }
-    }}});
+      else {
+        quantity.push(quantity);
+      }
+      localStorage.setItem("_id", JSON.stringify(_id));
+    });
 
